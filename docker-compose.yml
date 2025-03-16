@@ -1,0 +1,23 @@
+services:
+  webtop:
+    build: .
+    container_name: fedora-kde-PRD
+    restart: unless-stopped
+    ports:
+      - "3005:3000"  # Change the port if needed
+    shm_size: "2gb"
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=Etc/UTC
+      - SUBFOLDER=/  # Change if needed
+      - TITLE=Fedora KDE Webtop
+      - CUSTOM_USER=webtop
+    volumes:
+      - ./:/config  # Persistent storage
+      - /run/media/lgloria/cec522e7-684d-45f7-9016-755109ac9e8b/GLORIAS/CURSO/:/home/GLORIAS
+    security_opt:
+      - seccomp=unconfined
+      - apparmor=unconfined
+    cap_add:
+      - SYS_ADMIN
